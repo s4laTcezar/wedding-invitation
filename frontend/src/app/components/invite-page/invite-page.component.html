@@ -1,0 +1,31 @@
+<div class="invite">
+  <div class="invite__monogram">{{ config.monogram }}</div>
+  <p class="eyebrow">Вас приглашают на свадьбу</p>
+
+  <!-- Плейсхолдер под фото пары — замените на реальную фотографию,
+       см. комментарий в invite-page.component.scss -->
+  <div class="polaroid">
+    <div class="polaroid__photo">
+      <span class="polaroid__spark">✦</span>
+    </div>
+    <p class="polaroid__caption">{{ config.invitePhotoCaption }}</p>
+  </div>
+
+  <h1 class="invite__names">
+    <span>{{ config.groomName }}</span>
+    <span class="invite__amp">&amp;</span>
+    <span>{{ config.brideName }}</span>
+  </h1>
+
+  <p class="invite__date">{{ config.eventDateLabel }}</p>
+  <p class="invite__city">{{ config.eventCity }}</p>
+
+  <p class="invite__message">{{ config.inviteMessage }}</p>
+
+  <a class="envelope" routerLink="/details">
+    <span class="envelope__flap"></span>
+    <span class="envelope__seal">{{ config.monogram }}</span>
+  </a>
+  <p class="invite__hint">Нажмите на печать, чтобы открыть приглашение</p>
+  <p class="eyebrow invite__dresscode">{{ config.dressCode }}</p>
+</div>

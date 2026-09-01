@@ -1,0 +1,12 @@
+# Локальный запуск одной командой:  docker compose up --build
+# Токен бота и chat_id берутся из backend/.env — руками в терминал их
+# вводить не нужно.
+
+services:
+  web:
+    build: .
+    image: wedding-invitation
+    ports:
+      - "8000:8000"
+    env_file:
+      - backend/.env

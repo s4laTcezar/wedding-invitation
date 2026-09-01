@@ -1,0 +1,44 @@
+<div class="page">
+  <p class="eyebrow">Просим ответить</p>
+  <h1 class="page__title">R.S.V.P.</h1>
+  <p class="page__deadline">{{ rsvpDeadlineText }}</p>
+
+  @if (status === 'success') {
+    <p class="page__success">Спасибо! Мы получили ваш ответ.</p>
+  } @else {
+    <form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <label class="field">
+        <span class="field__label">Имя и фамилия</span>
+        <input type="text" formControlName="fullName" autocomplete="name" />
+        @if (form.controls.fullName.touched && form.controls.fullName.invalid) {
+          <span class="field__error">Укажите, как к вам обращаться</span>
+        }
+      </label>
+
+      <label class="field">
+        <span class="field__label">Ваш ответ</span>
+        <textarea formControlName="responseText" rows="4"
+          placeholder="Пожелание молодожёнам (необязательно)"></textarea>
+      </label>
+
+      <div class="choice">
+        <button type="button" class="choice__btn choice__btn--accept"
+          [class.choice__btn--active]="attending" (click)="choose(true)">
+          С радостью придём
+        </button>
+        <button type="button" class="choice__btn choice__btn--decline"
+          [class.choice__btn--active]="!attending" (click)="choose(false)">
+          К сожалению, нет
+        </button>
+      </div>
+
+      <button type="submit" class="submit" [disabled]="status === 'sending'">
+        {{ status === 'sending' ? 'Отправляем…' : 'Отправить ответ' }}
+      </button>
+
+      @if (status === 'error') {
+        <p class="page__error">Не получилось отправить ответ. Попробуйте ещё раз чуть позже.</p>
+      }
+    </form>
+  }
+</div>

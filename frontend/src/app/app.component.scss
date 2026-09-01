@@ -1,0 +1,34 @@
+.invitation {
+  position: relative;
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100svh;
+  border-left: 1px solid var(--color-deep);
+  border-right: 1px solid var(--color-deep);
+  padding: 2.5rem 1.75rem 1.5rem;
+
+  @media (min-width: 480px) {
+    margin: 2.5rem auto;
+    min-height: auto;
+    border: 1px solid var(--color-deep);
+  }
+}
+
+.invitation__corner {
+  position: absolute;
+  top: 1.1rem;
+  width: 64px;
+  height: 44px;
+
+  &--left {
+    left: 1.1rem;
+  }
+
+  &--right {
+    right: 1.1rem;
+  }
+}
+
+.invitation__content {
+  padding-top: 2.5rem;
+}

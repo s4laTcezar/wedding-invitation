@@ -1,0 +1,46 @@
+.page {
+  text-align: center;
+}
+
+.page__title {
+  font-size: 3rem;
+  color: var(--color-deep);
+}
+
+.card {
+  background: var(--color-card);
+  border-radius: 6px;
+  padding: 1.5rem 1.5rem 1.75rem;
+  margin-bottom: 1.5rem;
+  text-align: left;
+
+  p {
+    margin: 0.15rem 0;
+  }
+}
+
+.card__title {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-deep-dark);
+  margin-bottom: 0.75rem;
+}
+
+.card__time {
+  color: var(--color-text);
+}
+
+.page__footnote-title {
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-soft);
+  margin-bottom: 0.4rem;
+}
+
+.page__footnote {
+  color: var(--color-text-soft);
+  font-size: 0.92rem;
+}
