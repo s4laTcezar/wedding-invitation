@@ -22,8 +22,7 @@ class Settings(BaseSettings):
     # обращаться к API. Для локальной разработки достаточно значения
     # по умолчанию — при деплое замените на реальный домен сайта.
     cors_origins: list[str] = [
-        "http://localhost:4200",
-        "http://127.0.0.1:4200",
+        "https://wedding-invitation-55wh.onrender.com",
     ]
 
 
