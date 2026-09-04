@@ -5,6 +5,20 @@
   background: url('/assets/background1st.svg') center / cover no-repeat;
 }
 
+.invite-page__hint {
+  position: absolute;
+  top: 18%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+  width: min(85%, 380px);
+  margin: 0;
+  font-family: 'Mrs Saint Delafield', cursive;
+  font-size: clamp(1.6rem, 7vw, 2.4rem);
+  color: #e3dccc;
+  text-align: center;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+}
+
 .invite-page__envelope-slot {
   position: absolute;
   top: 65%;
