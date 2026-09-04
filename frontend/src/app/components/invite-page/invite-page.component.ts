@@ -1,9 +1,10 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-invite-page',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './invite-page.component.html',
   styleUrl: './invite-page.component.scss',
 })
