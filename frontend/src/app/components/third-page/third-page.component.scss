@@ -108,6 +108,18 @@
   }
 }
 
+.game__skip-btn {
+  border: none;
+  background: none;
+  color: #e3dccc;
+  font-family: 'Mrs Saint Delafield', cursive;
+  font-size: 1.1rem;
+  letter-spacing: 0.03em;
+  text-decoration: underline;
+  cursor: pointer;
+  opacity: 0.85;
+}
+
 .game__next-btn {
   border: 1px solid #e3dccc;
   border-radius: 24px;
