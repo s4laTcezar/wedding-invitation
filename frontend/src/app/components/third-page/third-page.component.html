@@ -32,7 +32,11 @@
         <div class="game__overlay">
           <p class="game__title">Спіймай букети для нареченої!</p>
           <p class="game__subtitle">Впіймай {{ winScore }} букетів, але стережись бомбочок 💣</p>
-          <button type="button" class="game__btn" (click)="start()">Почати</button>
+          @if (assetsReady) {
+            <button type="button" class="game__btn" (click)="start()">Почати</button>
+          } @else {
+            <p class="game__subtitle">Завантаження…</p>
+          }
           <button type="button" class="game__skip-btn" routerLink="/rsvp">Пропустити гру</button>
         </div>
       }

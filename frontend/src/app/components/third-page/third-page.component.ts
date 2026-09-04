@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 type GameStage = 'intro' | 'playing' | 'finished';
@@ -23,6 +23,14 @@ const BASKET_WIDTH = 76;
 const BASKET_HEIGHT = 60;
 const WIN_SCORE = 10;
 
+const ASSET_URLS = [
+  '/assets/basket.png',
+  '/assets/bouquet.png',
+  '/assets/pngtree-boom-illustration-game-pixel-png-image_5683821.png',
+  '/assets/gameBackground.png',
+  '/assets/nextBackgound.svg',
+];
+
 @Component({
   selector: 'app-third-page',
   standalone: true,
@@ -30,7 +38,7 @@ const WIN_SCORE = 10;
   templateUrl: './third-page.component.html',
   styleUrl: './third-page.component.scss',
 })
-export class ThirdPageComponent implements OnDestroy {
+export class ThirdPageComponent implements OnInit, OnDestroy {
   @ViewChild('gameWindow') private readonly gameWindowRef?: ElementRef<HTMLDivElement>;
 
   stage: GameStage = 'intro';
@@ -39,6 +47,7 @@ export class ThirdPageComponent implements OnDestroy {
   timeLeft = GAME_DURATION_MS / 1000;
   items: FallingItem[] = [];
   basketX = 50;
+  assetsReady = false;
 
   readonly winScore = WIN_SCORE;
 
@@ -50,6 +59,22 @@ export class ThirdPageComponent implements OnDestroy {
   private lastFrameTime = 0;
   private windowWidth = 320;
   private windowHeight = 480;
+
+  ngOnInit(): void {
+    Promise.all(
+      ASSET_URLS.map(
+        (url) =>
+          new Promise<void>((resolve) => {
+            const img = new Image();
+            img.onload = () => resolve();
+            img.onerror = () => resolve();
+            img.src = url;
+          }),
+      ),
+    ).then(() => {
+      this.assetsReady = true;
+    });
+  }
 
   start(): void {
     this.stage = 'playing';
