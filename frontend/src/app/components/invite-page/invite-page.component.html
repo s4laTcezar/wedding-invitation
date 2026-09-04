@@ -1,12 +1,32 @@
 <section class="invite-page">
   <div class="invite-page__envelope-slot">
-    @if (!envelopeOpen) {
-      <img class="invite-page__envelope" src="/assets/closedEnvelope.svg" alt="Закритий конверт" />
-    } @else {
-      <img class="invite-page__envelope" src="/assets/backPartOfEnvelope.svg" alt="" />
-      <video class="invite-page__envelope invite-page__video" src="/assets/photos_restored_opaque.webm" autoplay muted playsinline></video>
-      <img class="invite-page__envelope" src="/assets/frontPartOfEnvelope.svg" alt="" />
-    }
+    <img
+      class="invite-page__envelope invite-page__layer"
+      [class.invite-page__layer--hidden]="envelopeOpen"
+      src="/assets/closedEnvelope.svg"
+      alt="Закритий конверт"
+    />
+    <img
+      class="invite-page__envelope invite-page__layer"
+      [class.invite-page__layer--hidden]="!envelopeOpen"
+      src="/assets/backPartOfEnvelope.svg"
+      alt=""
+    />
+    <video
+      #video
+      class="invite-page__envelope invite-page__video invite-page__layer"
+      [class.invite-page__layer--hidden]="!envelopeOpen"
+      src="/assets/photos_restored_opaque.webm"
+      muted
+      playsinline
+      preload="auto"
+    ></video>
+    <img
+      class="invite-page__envelope invite-page__layer"
+      [class.invite-page__layer--hidden]="!envelopeOpen"
+      src="/assets/frontPartOfEnvelope.svg"
+      alt=""
+    />
     <button type="button" class="invite-page__print-trigger" (click)="open()" aria-label="Відкрити конверт">
       <img class="invite-page__print" src="/assets/print.svg" alt="" />
     </button>
