@@ -1,1 +1,45 @@
-<section class="third-page"></section>
+<section class="third-page">
+  <div class="game">
+    <div class="game__header">
+      <span class="game__score">Букети: {{ score }}</span>
+      @if (stage === 'playing') {
+        <span class="game__timer">{{ timeLeft }}с</span>
+      }
+    </div>
+
+    <div
+      #gameWindow
+      class="game__window"
+      (mousemove)="onPointerMove($event.clientX)"
+      (touchstart)="onTouchMove($event)"
+      (touchmove)="onTouchMove($event)"
+    >
+      @if (stage === 'playing' || stage === 'finished') {
+        @for (bouquet of bouquets; track bouquet.id) {
+          <img
+            class="game__bouquet"
+            src="/assets/bouquet.png"
+            alt=""
+            [style.left.px]="bouquet.x"
+            [style.top.px]="bouquet.y"
+          />
+        }
+        <img class="game__basket" src="/assets/basket.png" alt="Кошик" [style.left.px]="basketX" />
+      }
+
+      @if (stage === 'intro') {
+        <div class="game__overlay">
+          <p class="game__title">Спіймай букети!</p>
+          <button type="button" class="game__btn" (click)="start()">Почати</button>
+        </div>
+      }
+
+      @if (stage === 'finished') {
+        <div class="game__overlay">
+          <p class="game__title">Спіймано: {{ score }}</p>
+          <button type="button" class="game__btn" (click)="restart()">Зіграти ще раз</button>
+        </div>
+      }
+    </div>
+  </div>
+</section>
