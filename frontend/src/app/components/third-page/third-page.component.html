@@ -1,7 +1,7 @@
 <section class="third-page">
   <div class="game">
     <div class="game__header">
-      <span class="game__score">Букети: {{ score }}</span>
+      <span class="game__score">Букети: {{ score }} / {{ winScore }}</span>
       @if (stage === 'playing') {
         <span class="game__timer">{{ timeLeft }}с</span>
       }
@@ -15,13 +15,14 @@
       (touchmove)="onTouchMove($event)"
     >
       @if (stage === 'playing' || stage === 'finished') {
-        @for (bouquet of bouquets; track bouquet.id) {
+        @for (item of items; track item.id) {
           <img
-            class="game__bouquet"
-            src="/assets/bouquet.png"
+            class="game__item"
+            [class.game__item--bomb]="item.type === 'bomb'"
+            [src]="item.type === 'bomb' ? '/assets/pngtree-boom-illustration-game-pixel-png-image_5683821.png' : '/assets/bouquet.png'"
             alt=""
-            [style.left.px]="bouquet.x"
-            [style.top.px]="bouquet.y"
+            [style.left.px]="item.x"
+            [style.top.px]="item.y"
           />
         }
         <img class="game__basket" src="/assets/basket.png" alt="Кошик" [style.left.px]="basketX" />
@@ -29,15 +30,23 @@
 
       @if (stage === 'intro') {
         <div class="game__overlay">
-          <p class="game__title">Спіймай букети!</p>
+          <p class="game__title">Спіймай букети для нареченої!</p>
+          <p class="game__subtitle">Впіймай {{ winScore }} букетів, але стережись бомбочок 💣</p>
           <button type="button" class="game__btn" (click)="start()">Почати</button>
         </div>
       }
 
       @if (stage === 'finished') {
         <div class="game__overlay">
-          <p class="game__title">Спіймано: {{ score }}</p>
-          <button type="button" class="game__btn" (click)="restart()">Зіграти ще раз</button>
+          @if (outcome === 'won') {
+            <p class="game__title">Перемога! 🎉</p>
+            <p class="game__subtitle">Спіймано букетів: {{ score }}</p>
+            <button type="button" class="game__next-btn" routerLink="/rsvp">Далі</button>
+          } @else {
+            <p class="game__title">Гру завершено</p>
+            <p class="game__subtitle">Спіймано букетів: {{ score }} з {{ winScore }}</p>
+            <button type="button" class="game__btn" (click)="restart()">Зіграти ще раз</button>
+          }
         </div>
       }
     </div>

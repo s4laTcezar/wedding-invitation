@@ -1,0 +1,42 @@
+<section class="rsvp-page">
+  <h1 class="rsvp-page__title">Нам дуже хочеться розділити цей особливий день із вами!</h1>
+  <p class="rsvp-page__deadline">Будь ласка, підтвердьте свою присутність до 15.10.2026 та залишіть нам повідомлення!</p>
+
+  @if (status === 'success') {
+    <p class="rsvp-page__success">Дякуємо! Ми отримали вашу відповідь.</p>
+  } @else {
+    <form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <label class="field">
+        <span class="field__label">ВАШЕ ІМ'Я</span>
+        <input type="text" formControlName="fullName" autocomplete="name" />
+        @if (form.controls.fullName.touched && form.controls.fullName.invalid) {
+          <span class="field__error">Напишіть, як до вас звертатися</span>
+        }
+      </label>
+
+      <label class="field">
+        <span class="field__label">ВАША ВІДПОВІДЬ</span>
+        <textarea formControlName="responseText" rows="4"></textarea>
+      </label>
+
+      <div class="choice">
+        <button type="button" class="choice__btn choice__btn--accept"
+          [class.choice__btn--active]="attending" (click)="choose(true)">
+          З РАДІСТЮ ПРИЙДУ!
+        </button>
+        <button type="button" class="choice__btn choice__btn--decline"
+          [class.choice__btn--active]="!attending" (click)="choose(false)">
+          На жаль ні 😢
+        </button>
+      </div>
+
+      <button type="submit" class="submit" [disabled]="status === 'sending'">
+        {{ status === 'sending' ? 'НАДСИЛАЄМО…' : 'Відправити відповідь' }}
+      </button>
+
+      @if (status === 'error') {
+        <p class="rsvp-page__error">Не вдалося надіслати відповідь. Спробуйте ще раз.</p>
+      }
+    </form>
+  }
+</section>

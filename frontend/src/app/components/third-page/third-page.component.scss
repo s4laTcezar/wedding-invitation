@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: center;
   padding: 24px 0;
+  background: url('/assets/nextBackgound.svg') center / cover no-repeat;
 }
 
 .game {
@@ -35,11 +36,15 @@
   touch-action: none;
 }
 
-.game__bouquet {
+.game__item {
   position: absolute;
   width: 46px;
   height: auto;
   pointer-events: none;
+}
+
+.game__item--bomb {
+  width: 40px;
 }
 
 .game__basket {
@@ -71,6 +76,15 @@
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
+.game__subtitle {
+  margin: -8px 0 0;
+  max-width: 280px;
+  font-family: 'Mrs Saint Delafield', cursive;
+  font-size: 1.3rem;
+  color: #fff;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
 .game__btn {
   border: 1px solid #e3dccc;
   border-radius: 24px;
@@ -81,4 +95,29 @@
   font-size: 1.4rem;
   letter-spacing: 0.05em;
   cursor: pointer;
+}
+
+@keyframes game-next-btn-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.game__next-btn {
+  border: 1px solid #e3dccc;
+  border-radius: 24px;
+  padding: 8px 28px;
+  background: rgba(0, 0, 0, 0.25);
+  color: #e3dccc;
+  font-family: 'Mrs Saint Delafield', cursive;
+  font-size: clamp(1.1rem, 4vw, 1.4rem);
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  opacity: 0;
+  animation: game-next-btn-in 0.6s ease 0.4s forwards;
 }

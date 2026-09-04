@@ -1,24 +1,32 @@
 import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 type GameStage = 'intro' | 'playing' | 'finished';
+type GameOutcome = 'won' | 'lost' | null;
+type FallingItemType = 'bouquet' | 'bomb';
 
-interface FallingBouquet {
+interface FallingItem {
   id: number;
+  type: FallingItemType;
   x: number;
   y: number;
 }
 
 const GAME_DURATION_MS = 20000;
-const SPAWN_INTERVAL_MS = 700;
+const BOUQUET_SPAWN_INTERVAL_MS = 700;
+const BOMB_SPAWN_INTERVAL_MS = 2800;
 const FALL_SPEED_PX_PER_S = 90;
 const BOUQUET_SIZE = 46;
+const BOMB_SIZE = 40;
+const BOMB_HITBOX_SIZE = 26;
 const BASKET_WIDTH = 76;
 const BASKET_HEIGHT = 60;
+const WIN_SCORE = 10;
 
 @Component({
   selector: 'app-third-page',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './third-page.component.html',
   styleUrl: './third-page.component.scss',
 })
@@ -26,13 +34,17 @@ export class ThirdPageComponent implements OnDestroy {
   @ViewChild('gameWindow') private readonly gameWindowRef?: ElementRef<HTMLDivElement>;
 
   stage: GameStage = 'intro';
+  outcome: GameOutcome = null;
   score = 0;
   timeLeft = GAME_DURATION_MS / 1000;
-  bouquets: FallingBouquet[] = [];
+  items: FallingItem[] = [];
   basketX = 50;
 
+  readonly winScore = WIN_SCORE;
+
   private nextId = 0;
-  private spawnTimer?: ReturnType<typeof setInterval>;
+  private bouquetSpawnTimer?: ReturnType<typeof setInterval>;
+  private bombSpawnTimer?: ReturnType<typeof setInterval>;
   private countdownTimer?: ReturnType<typeof setInterval>;
   private rafId?: number;
   private lastFrameTime = 0;
@@ -41,8 +53,9 @@ export class ThirdPageComponent implements OnDestroy {
 
   start(): void {
     this.stage = 'playing';
+    this.outcome = null;
     this.score = 0;
-    this.bouquets = [];
+    this.items = [];
     this.basketX = 50;
     this.timeLeft = GAME_DURATION_MS / 1000;
 
@@ -52,11 +65,12 @@ export class ThirdPageComponent implements OnDestroy {
       this.windowHeight = el.clientHeight;
     }
 
-    this.spawnTimer = setInterval(() => this.spawnBouquet(), SPAWN_INTERVAL_MS);
+    this.bouquetSpawnTimer = setInterval(() => this.spawnItem('bouquet'), BOUQUET_SPAWN_INTERVAL_MS);
+    this.bombSpawnTimer = setInterval(() => this.spawnItem('bomb'), BOMB_SPAWN_INTERVAL_MS);
     this.countdownTimer = setInterval(() => {
       this.timeLeft -= 1;
       if (this.timeLeft <= 0) {
-        this.finish();
+        this.finish(this.score >= WIN_SCORE ? 'won' : 'lost');
       }
     }, 1000);
 
@@ -88,9 +102,10 @@ export class ThirdPageComponent implements OnDestroy {
     }
   }
 
-  private spawnBouquet(): void {
-    const x = Math.random() * (this.windowWidth - BOUQUET_SIZE);
-    this.bouquets.push({ id: this.nextId++, x, y: -BOUQUET_SIZE });
+  private spawnItem(type: FallingItemType): void {
+    const size = type === 'bomb' ? BOMB_SIZE : BOUQUET_SIZE;
+    const x = Math.random() * (this.windowWidth - size);
+    this.items.push({ id: this.nextId++, type, x, y: -size });
   }
 
   private tick(time: number): void {
@@ -101,40 +116,56 @@ export class ThirdPageComponent implements OnDestroy {
     const basketLeft = this.basketX - BASKET_WIDTH / 2;
     const basketRight = this.basketX + BASKET_WIDTH / 2;
 
-    const remaining: FallingBouquet[] = [];
-    for (const bouquet of this.bouquets) {
-      bouquet.y += FALL_SPEED_PX_PER_S * dt;
+    const remaining: FallingItem[] = [];
+    for (const item of this.items) {
+      item.y += FALL_SPEED_PX_PER_S * dt;
 
-      const bouquetBottom = bouquet.y + BOUQUET_SIZE;
-      const bouquetCenterX = bouquet.x + BOUQUET_SIZE / 2;
+      const visualSize = item.type === 'bomb' ? BOMB_SIZE : BOUQUET_SIZE;
+      const hitboxSize = item.type === 'bomb' ? BOMB_HITBOX_SIZE : BOUQUET_SIZE;
+      const hitboxTop = item.y + (visualSize - hitboxSize) / 2;
+      const itemBottom = hitboxTop + hitboxSize;
+      const itemCenterX = item.x + visualSize / 2;
+      const caught = itemBottom >= basketTop && itemCenterX >= basketLeft && itemCenterX <= basketRight;
 
-      if (bouquetBottom >= basketTop && bouquetCenterX >= basketLeft && bouquetCenterX <= basketRight) {
+      if (caught) {
+        if (item.type === 'bomb') {
+          this.finish('lost');
+          return;
+        }
         this.score++;
+        if (this.score >= WIN_SCORE) {
+          this.finish('won');
+          return;
+        }
         continue;
       }
 
-      if (bouquet.y > this.windowHeight) {
+      if (item.y > this.windowHeight) {
         continue;
       }
 
-      remaining.push(bouquet);
+      remaining.push(item);
     }
-    this.bouquets = remaining;
+    this.items = remaining;
 
     if (this.stage === 'playing') {
       this.rafId = requestAnimationFrame((t) => this.tick(t));
     }
   }
 
-  private finish(): void {
+  private finish(outcome: GameOutcome): void {
     this.stage = 'finished';
-    this.bouquets = [];
+    this.outcome = outcome;
+    this.items = [];
     this.stopTimers();
   }
 
   private stopTimers(): void {
-    if (this.spawnTimer) {
-      clearInterval(this.spawnTimer);
+    if (this.bouquetSpawnTimer) {
+      clearInterval(this.bouquetSpawnTimer);
+    }
+    if (this.bombSpawnTimer) {
+      clearInterval(this.bombSpawnTimer);
     }
     if (this.countdownTimer) {
       clearInterval(this.countdownTimer);
