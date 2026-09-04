@@ -1,5 +1,76 @@
 .next-page {
+  position: relative;
   width: 100%;
   min-height: 100svh;
   background: url('/assets/nextBackgound.svg') center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes next-page-note-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.next-page__notes {
+  position: relative;
+  width: min(85%, 380px);
+  left: 3%
+}
+
+.next-page__note {
+  display: block;
+  opacity: 0;
+  animation: next-page-note-in 0.8s ease forwards;
+}
+
+.next-page__note--place {
+  width: 100%;
+  height: auto;
+  animation-delay: 0.2s;
+}
+
+.next-page__note--bow {
+  position: absolute;
+  right: -6%;
+  bottom: -25%;
+  width: 58%;
+  height: auto;
+  animation-delay: 0.6s;
+}
+
+@keyframes next-page-next-btn-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.next-page__next-btn {
+  position: absolute;
+  bottom: 3%;
+  left: 52%;
+  transform: translateX(-50%);
+  border: 1px solid #e3dccc;
+  border-radius: 24px;
+  padding: 8px 28px;
+  background: rgba(0, 0, 0, 0.25);
+  color: #e3dccc;
+  font-family: 'Mrs Saint Delafield', cursive;
+  font-size: clamp(1.1rem, 4vw, 1.4rem);
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  animation: next-page-next-btn-in 0.6s ease 1s forwards;
+  opacity: 0;
 }
