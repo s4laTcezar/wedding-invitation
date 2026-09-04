@@ -27,7 +27,7 @@ const ASSET_URLS = [
   '/assets/basket.png',
   '/assets/bouquet.png',
   '/assets/pngtree-boom-illustration-game-pixel-png-image_5683821.png',
-  '/assets/gameBackground.png',
+  '/assets/gameBackground.jpg',
   '/assets/nextBackgound.svg',
 ];
 
