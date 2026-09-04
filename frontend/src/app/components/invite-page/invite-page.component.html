@@ -13,14 +13,20 @@
       alt=""
     />
     <video
-      #video
-      class="invite-page__envelope invite-page__video invite-page__layer"
-      [class.invite-page__layer--hidden]="!envelopeOpen"
-      src="/assets/photos_restored_opaque.webm"
+      #sourceVideo
+      class="invite-page__source-video"
+      src="/assets/photos_alpha_sbs.mp4"
       muted
       playsinline
       preload="auto"
     ></video>
+    <canvas
+      #canvas
+      class="invite-page__envelope invite-page__video invite-page__layer"
+      [class.invite-page__layer--hidden]="!envelopeOpen"
+      width="699"
+      height="741"
+    ></canvas>
     <img
       class="invite-page__envelope invite-page__layer"
       [class.invite-page__layer--hidden]="!envelopeOpen"

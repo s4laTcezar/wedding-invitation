@@ -26,6 +26,10 @@
   visibility: hidden;
 }
 
+.invite-page__source-video {
+  display: none;
+}
+
 .invite-page__video {
   position: absolute;
   object-fit: cover;
