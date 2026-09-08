@@ -8,7 +8,9 @@
     <form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
       <label class="field">
         <span class="field__label">ВАШЕ ІМ'Я</span>
-        <input type="text" formControlName="fullName" autocomplete="name" />
+        <div class="field__frame">
+          <input type="text" formControlName="fullName" autocomplete="name" />
+        </div>
         @if (form.controls.fullName.touched && form.controls.fullName.invalid) {
           <span class="field__error">Напишіть, як до вас звертатися</span>
         }
@@ -16,19 +18,10 @@
 
       <label class="field">
         <span class="field__label">ВАША ВІДПОВІДЬ</span>
-        <textarea formControlName="responseText" rows="4"></textarea>
+        <div class="field__frame">
+          <textarea formControlName="responseText" rows="4"></textarea>
+        </div>
       </label>
-
-      <div class="choice">
-        <button type="button" class="choice__btn choice__btn--accept"
-          [class.choice__btn--active]="attending" (click)="choose(true)">
-          З РАДІСТЮ ПРИЙДУ!
-        </button>
-        <button type="button" class="choice__btn choice__btn--decline"
-          [class.choice__btn--active]="!attending" (click)="choose(false)">
-          На жаль ні 😢
-        </button>
-      </div>
 
       <button type="submit" class="submit" [disabled]="status === 'sending'">
         {{ status === 'sending' ? 'НАДСИЛАЄМО…' : 'Відправити відповідь' }}

@@ -23,14 +23,6 @@ export class RsvpPageComponent {
     responseText: [''],
   });
 
-  get attending(): boolean {
-    return this.form.controls.attending.value === true;
-  }
-
-  choose(attending: boolean): void {
-    this.form.controls.attending.setValue(attending);
-  }
-
   submit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();

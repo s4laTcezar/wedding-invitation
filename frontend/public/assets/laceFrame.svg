@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <g id="leaf">
+      <path d="M0,0 C2,-3 6,-3 8,0 C6,3 2,3 0,0 Z" fill="#6b4b2a"/>
+    </g>
+    <g id="flower">
+      <g fill="#a5250d">
+        <ellipse cx="0" cy="-4.2" rx="2" ry="3.6"/>
+        <ellipse cx="0" cy="-4.2" rx="2" ry="3.6" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-4.2" rx="2" ry="3.6" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-4.2" rx="2" ry="3.6" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-4.2" rx="2" ry="3.6" transform="rotate(288)"/>
+      </g>
+      <circle r="1.4" fill="#e3b34a"/>
+    </g>
+    <g id="edge">
+      <path d="M0,20 Q15,10 30,20 T60,20 T90,20 T120,20" fill="none" stroke="#6b4b2a" stroke-width="1.1" stroke-linecap="round"/>
+      <use href="#flower" transform="translate(15,11) scale(0.85)"/>
+      <use href="#flower" transform="translate(60,25) scale(0.85)"/>
+      <use href="#flower" transform="translate(105,11) scale(0.85)"/>
+      <use href="#leaf" transform="translate(33,23) rotate(200) scale(0.8)"/>
+      <use href="#leaf" transform="translate(87,15) rotate(20) scale(0.8)"/>
+      <use href="#leaf" transform="translate(42,12) rotate(-30) scale(0.7)"/>
+      <use href="#leaf" transform="translate(78,26) rotate(150) scale(0.7)"/>
+    </g>
+    <g id="corner">
+      <use href="#flower" transform="scale(1.5)"/>
+      <use href="#leaf" transform="rotate(140) translate(6,0) scale(1.1)"/>
+      <use href="#leaf" transform="rotate(40) translate(6,0) scale(1.1)"/>
+      <use href="#leaf" transform="rotate(-100) translate(6,0) scale(0.9)"/>
+    </g>
+  </defs>
+
+  <use href="#edge" transform="translate(0,0)"/>
+  <use href="#edge" transform="rotate(90,60,60)"/>
+  <use href="#edge" transform="rotate(180,60,60)"/>
+  <use href="#edge" transform="rotate(270,60,60)"/>
+
+  <use href="#corner" transform="translate(16,16)"/>
+  <use href="#corner" transform="translate(104,16) scale(-1,1)"/>
+  <use href="#corner" transform="translate(16,104) scale(1,-1)"/>
+  <use href="#corner" transform="translate(104,104) scale(-1,-1)"/>
+</svg>
