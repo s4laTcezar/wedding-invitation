@@ -39,6 +39,12 @@
     <button type="button" class="invite-page__print-trigger" (click)="open()" aria-label="Відкрити конверт">
       <img class="invite-page__print" src="/assets/print.svg" alt="" />
     </button>
+    @if (envelopeOpen) {
+      <img class="invite-page__deco invite-page__deco--flower" src="/assets/flower.svg" alt="" />
+      <img class="invite-page__deco invite-page__deco--pearls" src="/assets/pearls.svg" alt="" />
+      <img class="invite-page__deco invite-page__deco--ribbon" src="/assets/ribbon.svg" alt="" />
+      <img class="invite-page__deco invite-page__deco--rings" src="/assets/rings.svg" alt="" />
+    }
   </div>
   @if (envelopeOpen) {
     <button type="button" class="invite-page__next-btn" routerLink="/next">Далі</button>
