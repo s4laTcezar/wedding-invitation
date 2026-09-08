@@ -60,7 +60,6 @@ export class InvitePageComponent {
     };
 
     video.currentTime = 0;
-    video.playbackRate = 1 / 1.5;
     video.play().then(() => requestAnimationFrame(drawFrame));
   }
 }
